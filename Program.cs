@@ -23,7 +23,8 @@ class Program
         var userEmailService = new UserEmailService(dbContextScopeFactory);
         var userCreditScoreService = new UserCreditScoreService(dbContextScopeFactory);
 
-        try {
+        try 
+        {
             Console.WriteLine("This demo uses an EF Core In Memory database. It does not create any external databases.");
             Console.WriteLine("");
 
@@ -59,10 +60,13 @@ class Program
             Console.WriteLine("Creating 2 new users called Julie and Marc in an atomic transaction. Will make the persistence of the second user fail intentionally in order to test the atomicity of the transaction...");
             var julieSpec = new UserCreationSpec("Julie", "julie@example.com");
             var marcSpec = new UserCreationSpec("Marc", "marc@example.com");
-            try {
+            try 
+            {
                 userCreationService.CreateListOfUsersWithIntentionalFailure(julieSpec, marcSpec);
                 Console.WriteLine("Done.\n");
-            } catch (Exception e) {
+            } 
+            catch (Exception e) 
+            {
                 Console.WriteLine(e.Message);
                 Console.WriteLine();
             }
@@ -79,7 +83,7 @@ class Program
             // We're going to block on the async task here as we don't have a choice. No risk of deadlocking in any case as console apps
             // don't have a synchronization context.
             var usersFoundAsync = userQueryService.GetTwoUsersAsync(johnSpec.Id, jeanneSpec.Id).Result;
-            Console.WriteLine("OK. Found {0} persisted users.", usersFoundAsync.Count());
+            Console.WriteLine("OK. Found {0} persisted users.", usersFoundAsync.Count);
 
             Console.WriteLine("Press enter to continue...");
             Console.ReadLine();
@@ -98,7 +102,8 @@ class Program
             // This is a pretty advanced feature that you can safely ignore until you actually need it.
             Console.WriteLine("Will simulate sending a Welcome email to John...");
 
-            using (var parentScope = dbContextScopeFactory.Create()) {
+            using (var parentScope = dbContextScopeFactory.Create()) 
+            {
                 var parentDbContext = parentScope.DbContexts.Get<UserManagementDbContext>();
 
                 // Load John in the parent DbContext
@@ -124,7 +129,9 @@ class Program
             Console.WriteLine("Calculating and storing the credit score of all users in the database in parallel...");
             userCreditScoreService.UpdateCreditScoreForAllUsers();
             Console.WriteLine("Done.");
-        } catch (Exception e) {
+        } 
+        catch (Exception e) 
+        {
             Console.WriteLine(e);
         }
 

@@ -1,5 +1,4 @@
-﻿using Slant.Entity;
-using Slant.Entity.Demo.CommandModel;
+﻿using Slant.Entity.Demo.CommandModel;
 using Slant.Entity.Demo.DomainModel;
 using Slant.Entity.Demo.Repositories;
 using System;
