@@ -7,8 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BitFaster.Caching" Version="2.2.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.11" />
     <PackageReference Include="Slant.Entity" Version="7.0.11" />
   </ItemGroup>
+
 
 </Project>

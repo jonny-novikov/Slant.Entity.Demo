@@ -16,7 +16,7 @@ class Program
         //-- Poor-man DI - build our dependencies by hand for this demo
         var dbContextScopeFactory = new DbContextScopeFactory(new DbContextFactory());
         var ambientDbContextLocator = new AmbientDbContextLocator();
-        var userRepository = new UserRepository(ambientDbContextLocator);
+        var userRepository = new UserRepositoryCache(ambientDbContextLocator);
 
         var userCreationService = new UserCreationService(dbContextScopeFactory, userRepository);
         var userQueryService = new UserQueryService(dbContextScopeFactory, userRepository);
@@ -36,6 +36,10 @@ class Program
 
             Console.WriteLine("Trying to retrieve our newly created user from the data store...");
             var mary = userQueryService.GetUser(marysSpec.Id);
+            for (int i = 0; i < 100; i++)
+            {
+                userQueryService.GetUserViaRepository(marysSpec.Id);
+            }
             Console.WriteLine("OK. Persisted user: {0}", mary);
 
             Console.WriteLine("Press enter to continue...");
