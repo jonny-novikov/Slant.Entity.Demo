@@ -4,6 +4,7 @@ using Slant.Entity.Demo.BusinessLogicServices;
 using Slant.Entity.Demo.CommandModel;
 using Slant.Entity.Demo.DatabaseContext;
 using Slant.Entity.Demo.Repositories;
+using Slant.Entity.Demo.Validation;
 using System;
 using System.Linq;
 
@@ -22,6 +23,7 @@ class Program
         var userQueryService = new UserQueryService(dbContextScopeFactory, userRepository);
         var userEmailService = new UserEmailService(dbContextScopeFactory);
         var userCreditScoreService = new UserCreditScoreService(dbContextScopeFactory);
+        var userValidationService = new UserValidationService();
 
         try 
         {
@@ -39,6 +41,11 @@ class Program
             for (int i = 0; i < 100; i++)
             {
                 userQueryService.GetUserViaRepository(marysSpec.Id);
+            }
+            var validatedUser = userValidationService.ValidateUser(mary);
+            if (validatedUser.IsValid)
+            {
+                Console.WriteLine("User is valid");
             }
             Console.WriteLine("OK. Persisted user: {0}", mary);
 
