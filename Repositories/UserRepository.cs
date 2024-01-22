@@ -53,4 +53,12 @@ public class UserRepository : IUserRepository
     {
         DbContext.Users.Add(user);
     }
+
+    public User UpdateName(Guid userId, string name)
+    {
+        var user = Get(userId);
+        user.Name = name;
+        DbContext.Users.Update(user);
+        return user;
+    }
 }

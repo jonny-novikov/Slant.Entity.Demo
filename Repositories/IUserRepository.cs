@@ -9,4 +9,5 @@ public interface IUserRepository
     User Get(Guid userId);
     ValueTask<User> GetAsync(Guid userId);
     void Add(User user);
+    User UpdateName(Guid userId, string name);
 }

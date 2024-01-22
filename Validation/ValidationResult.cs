@@ -1,7 +1,5 @@
 using Slant.Entity.Demo.DomainModel;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Slant.Entity.Demo.Validation;
 
@@ -29,17 +27,6 @@ public abstract record ValidationState(Severity Severity, string Field, string M
 public record ValidationError(string Field, string Message) : ValidationState(Severity.Error, Field, Message);
 
 public record ValidationWarning(string Field, string Message) : ValidationState(Severity.Warning, Field, Message);
-
-/*
-public class ValidationResult
-{
-    public bool IsValid => Errors.All(e => e.ErrorType != ErrorType.Blocking);
-    
-    public List<ValidationError> Errors { get; init; } = new();
-
-    public IEnumerable<ValidationError> Warnings => Errors.Where(x => x.ErrorType == ErrorType.Warning);
-}
-*/
 
 public interface IValidationState<T>
 {

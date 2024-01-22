@@ -10,9 +10,9 @@ using System.Linq;
 
 namespace Slant.Entity.Demo;
 
-class Program 
+public class Program 
 {
-    static void Main(string[] args) 
+    public static void Main(string[] _) 
     {
         //-- Poor-man DI - build our dependencies by hand for this demo
         var dbContextScopeFactory = new DbContextScopeFactory(new DbContextFactory());
@@ -41,6 +41,7 @@ class Program
             for (int i = 0; i < 100; i++)
             {
                 userQueryService.GetUserViaRepository(marysSpec.Id);
+                // userRepository.UpdateName(marysSpec.Id, "Marry [HerHusbandLastName]");
             }
             var validatedUser = userValidationService.ValidateUser(mary);
             if (validatedUser.IsValid)

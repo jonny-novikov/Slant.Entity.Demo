@@ -2,6 +2,7 @@
 using BitFaster.Caching.Lru;
 using Slant.Entity.Demo.DomainModel;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Slant.Entity.Demo.Repositories;
@@ -21,14 +22,22 @@ public class UserRepositoryCache : IUserRepository
         _userRepository = new UserRepository(ambientDbContextLocator);
         if (_cache.Events.HasValue)
         {
-            _cache.Events.Value.ItemUpdated += (sender, args) => Console.WriteLine("Cache item updated");
+            _cache.Events.Value.ItemUpdated += (sender, args) =>
+            {
+                Console.WriteLine("Cache item updated");
+            };
             // Console.WriteLine("Events configured");
         }
     }
 
     public User Get(Guid userId)
     {
-        return _cache.GetOrAdd(userId, _userRepository.Get);
+        var user = _cache.GetOrAdd(userId, _userRepository.Get);
+        for (var i = 0; i < 100; i++)
+        {
+            _cache.AddOrUpdate(userId, user);
+        }
+        return user;
     }
 
     public async ValueTask<User> GetAsync(Guid userId)
@@ -45,5 +54,12 @@ public class UserRepositoryCache : IUserRepository
     {
         _userRepository.Add(user);
         _cache.AddOrUpdate(user.Id, user);
+    }
+
+    public User UpdateName(Guid userId, string name)
+    {
+        var user = _userRepository.UpdateName(userId, name);
+        _cache.AddOrUpdate(userId, user);
+        return user;
     }
 }
