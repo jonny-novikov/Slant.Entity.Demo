@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slant.Entity.Demo", "Slant.Entity.Demo.csproj", "{1837427E-07E1-4355-B07F-19385A3AF3F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Slant.Entity.Demo", "src/Slant.Entity.Demo.csproj", "{1837427E-07E1-4355-B07F-19385A3AF3F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
