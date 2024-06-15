@@ -22,11 +22,11 @@ public class UserRepositoryCache : IUserRepository
         _userRepository = new UserRepository(ambientDbContextLocator);
         if (_cache.Events.HasValue)
         {
-            _cache.Events.Value.ItemUpdated += (sender, args) =>
-            {
-                Console.WriteLine("Cache item updated");
-            };
-            // Console.WriteLine("Events configured");
+            if (_cache.Events.Value != null)
+                _cache.Events.Value.ItemUpdated += (sender, args) =>
+                {
+                    Console.WriteLine("Cache item updated");
+                };
         }
     }
 
